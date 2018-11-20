@@ -27,7 +27,7 @@ function getSourceURL(index) {
 
 function parseHTML(html) {
     const dom = new JSDOM(html);
-    let aList = dom.window.document.querySelectorAll('.qy-mod-li .qy-mod-link-wrap > a');
+    let aList = dom.window.document.querySelectorAll('div.site-piclist_pic > a');
     aList = Array.from(aList);
     return aList.map((a) => {
         return {
@@ -39,7 +39,7 @@ function parseHTML(html) {
 }
 
 function saveToFile(data) {
-    let str = JSON.stringify(data);
+    let str = JSON.stringify(data, null, 2);
     fs.writeFile('./data.json', str, {
         flag: 'w+'
     }, (err) => {
