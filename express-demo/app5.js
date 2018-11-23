@@ -1,4 +1,39 @@
 var async = require('async');
+var superagent = require('superagent');
+var cheerio = require('cheerio');
+var url = require('url');
+
+var cnodeUrl = 'https://cnodejs.org/';
+var topic =[];
+
+superagent.get(cnodeUrl)
+  .end(function(err, res){
+    if(err) {
+      return console.error(err);
+    }
+    var topicUrls = [];
+    var $ = cheerio.load(res.text);
+    $('#topic_list .topic_title').each(function (idx, element) {
+      var $element = $(element);
+      var href = url.resolve(cnodeUrl, $element.attr('href'));
+      topicUrls.push(href);
+    });  
+    
+    async.mapLimit(topicUrls, 5, function (url, callback) {
+      fetchUrl(url, callback);
+    }, function (err, result) {
+      console.log('final:');
+      // console.log(result);
+      var $ = cheerio.load(result);
+      topic.push({
+        title: $('.topic_full_title').text().trim(),
+        href: url,
+        comment1: $('.reply_content').eq(0).text().trim(),
+      });
+    });
+    console.log(topic);
+  });
+
 
 var concurrencyCount = 0;
 var fetchUrl = function (url, callback) {
@@ -10,15 +45,3 @@ var fetchUrl = function (url, callback) {
     callback(null, url + ' html content');
   }, delay);
 };
-
-var urls = [];
-for(var i = 0; i < 30; i++) {
-  urls.push('http://datasource_' + i);
-}
-
-async.mapLimit(urls, 5, function (url, callback) {
-  fetchUrl(url, callback);
-}, function (err, result) {
-  console.log('final:');
-  console.log(result);
-});
