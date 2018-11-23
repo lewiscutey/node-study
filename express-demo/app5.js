@@ -24,14 +24,16 @@ superagent.get(cnodeUrl)
     }, function (err, result) {
       console.log('final:');
       // console.log(result);
-      var $ = cheerio.load(result);
-      topic.push({
-        title: $('.topic_full_title').text().trim(),
-        href: url,
-        comment1: $('.reply_content').eq(0).text().trim(),
+      result.forEach(item => {
+        var $ = cheerio.load(item[1]);
+        topic.push({
+          title: $('.topic_full_title').text().trim(),
+          href: item[0],
+          comment1: $('.reply_content').eq(0).text().trim(),
+        });
       });
+      console.log(topic);
     });
-    console.log(topic);
   });
 
 
@@ -40,8 +42,12 @@ var fetchUrl = function (url, callback) {
   var delay = parseInt((Math.random() * 10000000) % 2000, 10);
   concurrencyCount++;
   console.log('现在的并发数是', concurrencyCount, '，正在抓取的是', url, '，耗时' + delay + '毫秒');
-  setTimeout(function () {
-    concurrencyCount--;
-    callback(null, url + ' html content');
-  }, delay);
+  superagent.get(url)
+    .end(function (err, res) {
+       if(err) {
+         return console.error(err);
+       }
+       concurrencyCount--;
+       callback(null, [url, res.text]);
+    });
 };
