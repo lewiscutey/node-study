@@ -1,4 +1,4 @@
-function fibonacc(n) {
+function fibonacci(n) {
   if (typeof n !== 'number') {
     throw new Error('n should be a Number');
   }
