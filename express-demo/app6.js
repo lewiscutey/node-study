@@ -1,4 +1,4 @@
-var fibonacci = function (n) {
+function fibonacc(n) {
   if (typeof n !== 'number') {
     throw new Error('n should be a Number');
   }
@@ -24,3 +24,5 @@ if (require.main === module) {
   var n = Number(process.argv[2]);
   console.log('fibonacci(' + n + ') is', fibonacci(n));
 };
+
+
