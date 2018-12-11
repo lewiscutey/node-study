@@ -4,9 +4,9 @@ var superagent = require('superagent');
 
 var app = express();
 
-app.get('/', function (req, res, next) {
+// app.get('/', function (req, res, next) {
   // 用 superagent 去抓取 https://cnodejs.org/ 的内容
-  superagent.get('https://cnodejs.org/')
+  superagent.get('https://bj.meituan.com/meishi/')
     .end(function (err, sres) {
       // 常规的错误处理
       if (err) {
@@ -17,18 +17,18 @@ app.get('/', function (req, res, next) {
       // 剩下就都是 jquery 的内容了
       var $ = cheerio.load(sres.text);
       var items = [];
-      $('#topic_list .topic_title').each(function (idx, element) {
+      $('#app .poiList-wrap .left .filter li').each(function (idx, element) {
         var $element = $(element);
         items.push({
-          title: $element.attr('title'),
-          href: $element.attr('href')
+          title: $element.find('a').text(),
+          href: $element.find('a').attr('href')
         });
       });
-
-      res.send(items);
+      console.log(items);
+      // res.send(items);
     });
-});
+// });
 
-app.listen(3002, function(){
-    console.log('listen port 3002');
-});
+// app.listen(3006, function(){
+//     console.log('listen port 3002');
+// });
