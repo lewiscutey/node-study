@@ -42,4 +42,3 @@ $ npm -v
 
 # 查看 npm 的配置
 $ npm config list -l
-```
