@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
     })
   } else{
     // 以binary读取文件
-    fs.readFile(pathname, 'UTF-8', (err, data)=>{
+    fs.readFile(pathname, 'binary', (err, data)=>{
       if(err){
         res.writeHead(500, { 'Content-Type': 'text/plain'})
         res.end(JSON.stringify(err))
@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { 
         'Content-Type': `${mime.getType(pathname)};charset:UTF-8`
       })
-      res.write(data, 'UTF-8')
+      res.write(data, 'binary')
       res.end()
     })
   }
