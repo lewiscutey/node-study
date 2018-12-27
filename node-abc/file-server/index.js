@@ -5,7 +5,7 @@ const fs = require('fs');
 const mime = require('mime');
 
 const hostname = 'localhost';
-const port = 4004;
+const port = 4005;
 
 const server = http.createServer((req, res) => {
   if(req.url == '/favicon.ico') return //不响应favicon请求
