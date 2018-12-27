@@ -34,6 +34,27 @@ readerStream.on('error', function(err){
 
 console.log("程序执行完毕") */
 
-const fs = require('fs')
+/* const fs = require('fs')
 const file = fs.readFileSync('./README.md', {encoding: 'utf8'})
-fs.writeFileSync('./TEST.md', file)
+fs.writeFileSync('./TEST.md', file) */
+
+/* var fs = require('fs');
+var readStream = fs.createReadStream('./README.md');
+var writeStream = fs.createWriteStream('./test.md');
+
+readStream.on('data', function (chunk) { // 当有数据流出时，写入数据
+  if (writeStream.write(chunk) === false) { // 如果没有写完，暂停读取流
+    readStream.pause();
+  }
+});
+
+writeStream.on('drain', function () { // 写完后，继续读取
+  readStream.resume();
+});
+
+readStream.on('end', function () { // 当没有数据时，关闭数据流
+  writeStream.end();
+}); */
+
+var fs = require('fs');
+fs.createReadStream('./README.md').pipe(fs.createWriteStream('./test.md'));
