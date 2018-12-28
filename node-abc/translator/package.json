@@ -1,0 +1,22 @@
+{
+  "name": "translator",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "translate": "bin/index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "translate"
+  ],
+  "author": "lewis",
+  "license": "ISC",
+  "dependencies": {
+    "cli-table2": "^0.2.0",
+    "commander": "^2.19.0",
+    "superagent": "^4.1.0"
+  }
+}
