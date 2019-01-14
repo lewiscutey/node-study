@@ -1,13 +1,28 @@
-const mongoose = require("mongoose")
-// 使用原生promise，mongoose自带promise不再支持了
-mongoose.Promise = global.Promise
+const express = require('express')
+const nunjucks = require('nunjucks')
+const path = require('path')
+const bodyParser = require('body-parser')
+const app = express()
+const routes = require('./routes')
 
-const db=mongoose.connect('mongodb://localhost/test')
+// 静态文件目录
+app.use(express.static(path.join(__dirname, 'public')))
 
-db.connection.on("error", function (error) {  
-  console.log("数据库连接失败：" + error)
+// 配置模板引擎
+nunjucks.configure(path.join(__dirname, 'views'), {
+  autoescape: true,
+  express: app
 })
+app.set('view engine', 'html')
+// 配置bodyParser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 
-db.connection.on("open", function () {  
-  console.log("数据库连接成功")
+// 路由
+routes(app)
+
+const server = app.listen(3001, function () {
+  console.log('app listening at http:localhost:3000')
 })
