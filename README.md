@@ -5,3 +5,5 @@
 3. node-lesson node从0到1的基础学习课程
 4. thinkjs-dmeo 学习thinkjs的一个小demo
 5. node-blog 利用node制作的一个博客系统
+6. node-abcd node的系列课程实践
+7. node-oauth-demo oauth授权GitHub的demo
