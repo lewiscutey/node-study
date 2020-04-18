@@ -3,6 +3,8 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     {{aa}}{{bb}}
+    <input type="text" v-model="message" placeholder="请输入">
+    <p>输入的内容是: {{message}}</p>
   </div>
 </template>
 
@@ -14,7 +16,8 @@ export default {
   data() {
     return {
       aa: 1,
-      bb: 2
+      bb: 2,
+      message: ''
     }
   },
   components: {
@@ -32,6 +35,10 @@ export default {
     bb: () => {
       // eslint-disable-next-line no-console
       console.log(`this`, this)
+    },
+    message: () => {
+      // eslint-disable-next-line no-console
+      console.log(`this1`, this)
     }
   }
 }
