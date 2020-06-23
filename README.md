@@ -8,3 +8,4 @@
 6. node-abcd node的系列课程实践
 7. node-oauth-demo oauth授权GitHub的demo
 8. koa-simple-serve-demo koa-simple-serve的练习，可以起多个静态目录
+8. koa-static-router-demo koa-static-router的练习，可以起多个静态目录
